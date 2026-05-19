@@ -2,5 +2,18 @@
 search2(Elem, List) :- append(_, [Elem, Elem | _], List).
 
 %Ex1.2: search_two
-search_two (Elem , List ) :- append(_, [Elem, _, Elem | _], List).
+search_two(Elem , List ) :- append(_, [Elem, _, Elem | _], List).
+
+%Ex1.3: count
+count([], E, 0).
+count([E | T], E, N) :- count(T, E, N2), N is N2 + 1.
+count([H | T], E, N) :- H \= E, count(T, E, N).
+
+%Ex1.4: avg
+sum([] , 0).
+sum([H | T], N) :- sum (T , N2 ) , N is H + N2.
+size(L , N) :- var (L) , !, generate (L , N).
+size(L , N) :- length (L , N ).
+avg([], 0).
+avg(List, Avg) :- sum(List, Sum), size(List, Size), Avg is Sum / Size.
 
