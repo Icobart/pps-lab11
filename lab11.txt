@@ -17,3 +17,15 @@ size(L , N) :- length (L , N ).
 avg([], 0).
 avg(List, Avg) :- sum(List, Sum), size(List, Size), Avg is Sum / Size.
 
+%Ex1.5: max and min
+find_max(A, B, A) :- A >= B, !.
+find_max(A, B, B) :- A < B.
+find_min(A, B, A) :- A =< B, !.
+find_min(A, B, B) :- A > B.
+max([X], X, X).
+max([H | T], Max, Min) :- max(T, MaxTail, MinTail), find_max(H, MaxTail, Max), find_min(H, MinTail, Min).
+
+%Ex1.6: sublist
+%split(List1, Elements, SubList1, SubList2) :- length(SubList1, Elements), append(SubList1, SubList2, List1).
+split(List1, 0, [], List1).
+split([H | T], Elements, [H | SubList1], SubList2) :- NewElements is Elements - 1, split(T, NewElements, SubList1, SubList2).
