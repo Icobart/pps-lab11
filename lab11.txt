@@ -70,3 +70,8 @@ reaching(Graph, Node, List) :- findall(Target, member(e(Node, Target), Graph), L
 extract_nodes([], []).
 extract_nodes([e(H1, H2) | L], [H1, H2 | T]) :- extract_nodes(L, T).
 nodes(Graph, Nodes) :- extract_nodes(Graph, NewNodes), distinct(NewNodes, Nodes).
+
+%Ex3.5: anypath
+anypath(Graph, Node1, Node2, [e(Node1, Node2)]) :- member(e(Node1, Node2), Graph).
+anypath(Graph, Node1, Node2, [e(Node1, Node3) | ListPath]) :- member(e(Node1, Node3), Graph), anypath(Graph, Node3, Node2, ListPath).
+
