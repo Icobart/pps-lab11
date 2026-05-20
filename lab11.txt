@@ -75,3 +75,6 @@ nodes(Graph, Nodes) :- extract_nodes(Graph, NewNodes), distinct(NewNodes, Nodes)
 anypath(Graph, Node1, Node2, [e(Node1, Node2)]) :- member(e(Node1, Node2), Graph).
 anypath(Graph, Node1, Node2, [e(Node1, Node3) | ListPath]) :- member(e(Node1, Node3), Graph), anypath(Graph, Node3, Node2, ListPath).
 
+%Ex3.6: allreaching
+allreaching(Graph, Node, List) :- findall(Target, anypath(Graph, Node, Target, _), List).
+
