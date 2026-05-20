@@ -39,3 +39,6 @@ rotate([H | T], RotatedList) :- append(T, [H], RotatedList).
 interval(A, B, A).
 interval(A, B, X) :- A2 is A + 1, A2 =< B, interval(A2, B, X).
 dice(X) :- interval(1, 6, X).
+
+%Ex 1.9: three_dice
+three_dice(L) :- dice(L1), dice(L2), dice(L3), L = [L1, L2, L3].
