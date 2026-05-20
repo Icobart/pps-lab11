@@ -29,3 +29,13 @@ max([H | T], Max, Min) :- max(T, MaxTail, MinTail), find_max(H, MaxTail, Max), f
 %split(List1, Elements, SubList1, SubList2) :- length(SubList1, Elements), append(SubList1, SubList2, List1).
 split(List1, 0, [], List1).
 split([H | T], Elements, [H | SubList1], SubList2) :- NewElements is Elements - 1, split(T, NewElements, SubList1, SubList2).
+
+%Ex1.7: rotate
+rotate([], []).
+rotate([H | T], RotatedList) :- append(T, [H], RotatedList).
+
+%Ex 1.8: dice
+%dice(X) :- member(X, [1, 2, 3, 4, 5, 6]).
+interval(A, B, A).
+interval(A, B, X) :- A2 is A + 1, A2 =< B, interval(A2, B, X).
+dice(X) :- interval(1, 6, X).
