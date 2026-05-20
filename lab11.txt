@@ -42,3 +42,10 @@ dice(X) :- interval(1, 6, X).
 
 %Ex 1.9: three_dice
 three_dice(L) :- dice(L1), dice(L2), dice(L3), L = [L1, L2, L3].
+
+%Ex 2.1: distinct
+distinct(List, DistinctList) :- distinct(List, DistinctList, []).
+distinct([], [], _).
+distinct([H | T], DistinctList, Seen) :- member(H, Seen), !, distinct(T, DistinctList, Seen).
+distinct([H | T], [H | DistinctList], Seen) :- distinct(T, DistinctList, [H | Seen]).
+
