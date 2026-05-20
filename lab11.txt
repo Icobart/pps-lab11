@@ -62,3 +62,11 @@ dropAll(X, [H | Xs], [H | L]) :- dropAll(X, Xs, L).
 outDegree([], _, 0).
 outDegree([e(H1, _) | L], H1, Deg) :- !, outDegree(L, H1, DegTail), Deg is DegTail + 1.
 outDegree([_ | L], Node, Deg) :- outDegree(L, Node, Deg).
+
+%Ex3.3: reaching
+reaching(Graph, Node, List) :- findall(Target, member(e(Node, Target), Graph), List).
+
+%Ex3.4: nodes
+extract_nodes([], []).
+extract_nodes([e(H1, H2) | L], [H1, H2 | T]) :- extract_nodes(L, T).
+nodes(Graph, Nodes) :- extract_nodes(Graph, NewNodes), distinct(NewNodes, Nodes).
