@@ -57,3 +57,8 @@ dropLast(X, [X | T], T).
 dropAll(_, [], []).
 dropAll(X, [X | T], OutList) :- !, dropAll(X, T, OutList).
 dropAll(X, [H | Xs], [H | L]) :- dropAll(X, Xs, L).
+
+%Ex3.2: outDegree
+outDegree([], _, 0).
+outDegree([e(H1, _) | L], H1, Deg) :- !, outDegree(L, H1, DegTail), Deg is DegTail + 1.
+outDegree([_ | L], Node, Deg) :- outDegree(L, Node, Deg).
