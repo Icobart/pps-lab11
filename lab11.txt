@@ -49,3 +49,11 @@ distinct([], [], _).
 distinct([H | T], DistinctList, Seen) :- member(H, Seen), !, distinct(T, DistinctList, Seen).
 distinct([H | T], [H | DistinctList], Seen) :- distinct(T, DistinctList, [H | Seen]).
 
+%Ex2.3: other drops
+dropFirst(X, [X | T], T) :- !.
+dropFirst(X, [H | Xs], [H | L]) :- dropFirst(X, Xs, L).
+dropLast(X, [H | Xs], [H | L]) :- dropLast(X, Xs, L), !.
+dropLast(X, [X | T], T).
+dropAll(_, [], []).
+dropAll(X, [X | T], OutList) :- !, dropAll(X, T, OutList).
+dropAll(X, [H | Xs], [H | L]) :- dropAll(X, Xs, L).
