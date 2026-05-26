@@ -78,3 +78,28 @@ anypath(Graph, Node1, Node2, [e(Node1, Node3) | ListPath]) :- member(e(Node1, No
 %Ex3.6: allreaching
 allreaching(Graph, Node, List) :- findall(Target, anypath(Graph, Node, Target, _), List).
 
+%Ex4.1: next
+move([n | Tail], Player, [Player | Tail]).
+move([H | Tail], Player, [H | NewTail]) :- move(Tail, Player, NewTail).
+%Rows
+win([P, P, P, _, _, _, _, _, _], P).
+win([_, _, _, P, P, P, _, _, _], P).
+win([_, _, _, _, _, _, P, P, P], P).
+%Columns
+win([P, _, _, P, _, _, P, _, _], P).
+win([_, P, _, _, P, _, _, P, _], P).
+win([_, _, P, _, _, P, _, _, P], P).
+%Diagonal
+win([P, _, _, _, P, _, _, _, P], P).
+win([_, _, P, _, P, _, P, _, _], P).
+next(Table, Player, win(Player), NewTable) :- move(Table, Player, NewTable), win(NewTable, Player).
+next(Table, Player, nothing, NewTable) :- move(Table, Player, NewTable), \+ win(NewTable, Player), member(n, NewTable).
+next(Table, Player, even, NewTable) :- move(Table, Player, NewTable), \+ win(NewTable, Player), \+ member(n, NewTable).
+
+%Ex4.2: game
+next_player(x, o).
+next_player(o, x).
+game(Table, Player, Result, [Table, NewTable]) :- next(Table, Player, Result, NewTable), Result \= nothing.
+game(Table, Player, FinalResult, [Table | RestOfTables]) :- next(Table, Player, nothing, NewTable), next_player(Player, NextP), game(NewTable, NextP, FinalResult, RestOfTables).
+
+
